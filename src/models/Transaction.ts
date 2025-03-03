@@ -2,30 +2,32 @@ import crypto from "crypto";
 import Amount from "./Amount";
 import Description from "./Description";
 
+export type Type = "income" | "expense" | "card"
+
 export class Transaction {
     protected id: string;
     protected description: Description;
     protected amount: Amount;
     protected date: Date;
-    protected income: boolean;
+    protected type: Type;
   
     constructor(
         id: string, description: string, amount: number, 
-        date: Date, income: boolean
+        date: Date, type: Type
     ) {
         this.id = id;
         this.description = new Description(description);
         this.amount = new Amount(amount);
         this.date = new Date(date);
-        this.income = income;
+        this.type = type;
     }
 
     public static create(
         description: string, amount: number, 
-        date: Date, income: boolean
+        date: Date, type: Type
     ): Transaction {
         return new Transaction(crypto.randomUUID(), description, 
-            amount, date, income);
+            amount, date, type);
     }
 
     public getID(): string
@@ -45,18 +47,17 @@ export class Transaction {
         return this.date;
     }
 
-    public getIncome(): boolean {
-        return this.income;
+    public getType(): string {
+        return this.type;
     }
 
-    public getValues(): Object
-    {
+    public getValues(): Object {
         return {
             id: this.getID(),
             description: this.getDescription(),
             amount: this.getAmount(),
-            data: this.getDate(),
-            income: this.getIncome()
+            date: this.getDate(),
+            type: this.getType()
         };
     }
 }

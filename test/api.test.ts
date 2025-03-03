@@ -9,11 +9,11 @@ test("create expense", async () => {
         date: new Date(),
         income: true
     }
-    const responseCreate = await axios.post("http://localhost:3000/expenses", expense);
+    const responseCreate = await axios.post("http://localhost:3000/transaction", expense);
     const outputCreate = responseCreate.data;
     expect(responseCreate.status).toBe(201);
     expect(outputCreate.id).toBeDefined();
-    const responseGet = await axios.get("http://localhost:3000/expenses");
+    const responseGet = await axios.get("http://localhost:3000/transaction");
     const outputGet = responseGet.data[responseGet.data.length - 1];
     console.log(outputGet, outputCreate);
     expect(responseGet.status).toBe(200);

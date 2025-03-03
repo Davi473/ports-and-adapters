@@ -6,7 +6,7 @@ export default class Description {
 		this.value = name;
 	}
 
-	getValue () {
+	public getValue () {
 		return this.value;
 	}
 }

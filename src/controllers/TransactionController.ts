@@ -12,8 +12,8 @@ export class TransactionController {
     readonly createTransactionUseCase: CreateTransaction,
     readonly getAllTransactionUseCase: GetAllTransaction,
   ) {
-    this.httpServer.register("post", "/expenses", this.create.bind(this));
-    this.httpServer.register("get", "/expenses", this.getAll.bind(this));
+    this.httpServer.register("post", "/transaction", this.create.bind(this));
+    this.httpServer.register("get", "/transaction", this.getAll.bind(this));
   }
 
   async create(req: Request, res: Response): Promise<void> {

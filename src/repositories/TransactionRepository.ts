@@ -1,4 +1,5 @@
 import DatabaseConnection from '../DataBase/DataBaseConnection';
+import { Income } from '../models/Income';
 import { Transaction } from '../models/Transaction';
 
 export default interface TransactionRepository 
@@ -30,7 +31,7 @@ export class PostgresTransactionRepository implements TransactionRepository
     async save(transaction: Transaction): Promise<Transaction> {
         const query = "INSERT INTO expense (id, description, amount, date, income) VALUES ($1, $2, $3, $4, $5)";
         const values = [transaction.getID(), transaction.getDescription(), transaction.getAmount(), 
-            transaction.getDate(), transaction.getIncome()];
+            transaction.getDate(), transaction.getType()];
         await this.connection.query(query, values);
         return transaction;
     }
@@ -38,6 +39,6 @@ export class PostgresTransactionRepository implements TransactionRepository
     async findAll(): Promise<Transaction[]> {
         const query = "SELECT * FROM expense";
         const result: any[] = await this.connection.query(query);
-        return result.map((row) => new Transaction(row.id, row.description, row.amount, row.date, row.income));
+        return result.map((row) => new Income(row.id, row.description, row.amount, row.date, row.income));
     }
 }
