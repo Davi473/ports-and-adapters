@@ -1,11 +1,11 @@
-import { Transaction, Type } from "./Transaction";
+import { Transaction } from "./Transaction";
 
 export class Card extends Transaction {
     private list: any[];
   
     constructor(
         id: string, description: string, amount: number,
-        date: Date, type: Type, list: any[]
+        date: Date, type: string, list: any[]
     ) {
         super(id, description, amount, date, type);
         this.list = list;
@@ -13,7 +13,7 @@ export class Card extends Transaction {
 
     public static create(
         description: string, amount: number, 
-        date: Date, type: Type, list: any[] = []
+        date: Date, type: string, list: any[] = []
     ): Card {
         return new Card(crypto.randomUUID(), description, 
             amount, date, type, list);

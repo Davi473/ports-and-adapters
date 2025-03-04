@@ -1,6 +1,6 @@
 import { Transaction } from "./Transaction";
 
-export class Income extends Transaction {
+export class Expense extends Transaction {
   
     constructor(
         id: string, description: string, amount: number, 
@@ -12,8 +12,8 @@ export class Income extends Transaction {
     public static create(
         description: string, amount: number, 
         date: Date, type: string
-    ): Income {
-        return new Income(crypto.randomUUID(), description, 
+    ): Expense {
+        return new Expense(crypto.randomUUID(), description, 
             amount, date, type);
     }
 
