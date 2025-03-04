@@ -3,7 +3,11 @@ import Amount from "./Amount";
 import Description from "./Description";
 import Type from "./Type";
 
-export class Transaction {
+export interface ITransaction {
+    getValues(): Object
+}
+
+export class Transaction implements ITransaction {
     protected id: string;
     protected description: Description;
     protected amount: Amount;

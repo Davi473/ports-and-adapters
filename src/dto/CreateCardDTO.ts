@@ -1,6 +1,4 @@
-import { CreateTransactionDTO } from "./CreateTransactionDTO";
-
-export interface CreateCardDTO extends CreateTransactionDTO {
+export interface CreateCardDTO {
     description: string;
     amount: number;
     date: Date;
