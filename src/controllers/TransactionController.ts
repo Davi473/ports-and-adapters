@@ -9,6 +9,7 @@ import { CreateExpenseAndIncome } from '../use-cases/CreateExpenseAndIncome';
 import { GetIDTransaction } from '../use-cases/GetIDTransaction';
 import { GetYearAndMonthTransaction } from '../use-cases/GetYearAndMonth';
 import { YearAndMonthDTO } from '../dto/YearAndMonthDTO';
+import { GetMonth } from '../use-cases/GetMonthUseCase';
 
 export class TransactionController {
 
@@ -18,7 +19,8 @@ export class TransactionController {
       readonly createExpenseAndIncomeUseCase: CreateExpenseAndIncome,
       readonly getAllTransactionUseCase: GetAllTransaction,
       readonly getIDTransactionUseCase: GetIDTransaction,
-      readonly getYearAndMonthUseCase: GetYearAndMonthTransaction
+      readonly getYearAndMonthUseCase: GetYearAndMonthTransaction,
+      readonly getMonthUseCase: GetMonth
     ) {
       this.httpServer.register("post", "/transaction/expense", this.createExpenseAndIncome.bind(this));
       this.httpServer.register("post", "/transaction/income", this.createExpenseAndIncome.bind(this));
@@ -27,6 +29,7 @@ export class TransactionController {
       this.httpServer.register("get", "/transaction/year/:year/month/:month", this.getYearAndMonth.bind(this));
       this.httpServer.register("get", "/transaction/year/:year", this.getYearAndMonth.bind(this));
       this.httpServer.register("get", "/transaction", this.getAll.bind(this));
+      this.httpServer.register("get", "/months", this.getMonth.bind(this));
     }
 
     async createCard(req: Request, res: Response): Promise<void> {
@@ -79,6 +82,15 @@ export class TransactionController {
             res.status(200).json(transactions);
         } catch (e: any) {
             res.status(500).json({ error: 'Error getting transaction month',  message: `${e.message}` });
+        }
+    }
+
+    async getMonth(req: Request, res: Response): Promise<void> {
+        try {
+            const response = await this.getMonthUseCase.execute();
+            res.status(200).json(response);
+        } catch (e: any) {
+            res.status(500).json({ error: 'Error getting month',  message: `${e.message}` });
         }
     }
 }
