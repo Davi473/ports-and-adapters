@@ -4,4 +4,3 @@ export interface CreateExtenseAndIncomeDTO {
     date: Date;
     type: string;
 }
-  
